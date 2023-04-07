@@ -55,8 +55,8 @@ bool ValidateData(string data) {
 int CalcSizeArray(string data) {
     int size = 1;
 
-    for (int i = 0; i < data.length(); ++i) {
-        if (data[i] == ' ') {
+    for (char i : data) {
+        if (i == ' ') {
             size++;
         }
     }
