@@ -15,7 +15,13 @@ int* CreateArrayFromData(int* size, string data);
 void PrintArray(int* array, int size);
 
 int main() {
-    string data = "12 12 0 5 8 9 12 45";
+    string path = "input.dat";
+    string data = GetDataFromFile(path);
+
+    if (!ValidateData(data)) {
+        cerr << "Error!" << endl;
+        return 1;
+    }
 
     int size;
     int* array = CreateArrayFromData(&size, data);
