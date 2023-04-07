@@ -6,21 +6,21 @@ using namespace std;
 
 string GetDataFromFile(string path);
 
-bool validateData(string data);
+bool ValidateData(string data);
 
-int calcSizeArray(string data);
+int CalcSizeArray(string data);
+
+int* CreateArrayFromData(int* size, string data);
+
+void PrintArray(int* array, int size);
 
 int main() {
+    string data = "12 12 0 5 8 9 12 45";
 
-    string path = "input.dat";
+    int size;
+    int* array = CreateArrayFromData(&size, data);
+    PrintArray(array, size);
 
-    string data = GetDataFromFile(path);
-    cout << data << endl;
-
-    cout << validateData(data) << endl;
-
-    int size = calcSizeArray(data);
-    cout << size << endl;
 
     return 0;
 }
@@ -42,11 +42,11 @@ string GetDataFromFile(string path) {
     return line;
 }
 
-bool validateData(string data) {
+bool ValidateData(string data) {
     return !data.empty();
 }
 
-int calcSizeArray(string data) {
+int CalcSizeArray(string data) {
     int size = 1;
 
     for (int i = 0; i < data.length(); ++i) {
@@ -56,4 +56,28 @@ int calcSizeArray(string data) {
     }
 
     return size;
+}
+
+int* CreateArrayFromData(int* size, string data) {
+    *size = CalcSizeArray(data);
+    int* array = new int[*size];
+
+    for (int i = 0; i < *size; ++i) {
+        int position = data.find(' ');
+        if (position == string::npos) {
+            array[i] = stoi(data);
+        } else {
+            array[i] = stoi(data.substr(0, position));
+            data = data.substr(position + 1);
+        }
+    }
+
+    return array;
+}
+
+void PrintArray(int* array, int size) {
+    for (int i = 0; i < size; ++i) {
+        cout << array[i] << " ";
+    }
+    cout << endl;
 }
